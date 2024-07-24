@@ -3,3 +3,4 @@
 !.yarn/sdks
 gitversion.out
 coverage
+tsconfig.tsbuildinfo
