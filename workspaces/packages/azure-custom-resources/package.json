@@ -1,0 +1,32 @@
+{
+  "name": "azure-custom-resources",
+  "packageManager": "yarn@4.2.2",
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.5.0",
+    "bs58": "^6.0.0"
+  },
+  "main": "./src/index.ts",
+  "publishConfig": {
+    "main": "./lib/index.js",
+    "types": "./lib/index.df.ts"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "prepack": "tsc --noEmit false",
+    "postpack": "rm -rf lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joostvdwsd/azure-custom-resources",
+    "directory": "workspaces/packages/azure-custom-resources"
+  },
+  "engines": {
+    "node": ">=18.12.0"
+  }
+}
