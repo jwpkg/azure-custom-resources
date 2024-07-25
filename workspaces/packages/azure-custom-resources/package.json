@@ -18,7 +18,10 @@
     "lib"
   ],
   "scripts": {
-    "prepack": "tsc --noEmit false",
+    "build": "rm -f tsconfig.tsbuildinfo && tsc --noEmit false",
+    "copy-readme": "cp ../../../README.md .",
+    "copy-licence": "cp ../../../LICENSE .",
+    "prepack": "yarn copy-readme && yarn copy-licence && yarn build",
     "postpack": "rm -rf lib"
   },
   "repository": {
