@@ -90,6 +90,7 @@ export async function requestFromHttpRequest(request: HttpRequest): Promise<Pars
       if ('properties' in bodyContent && typeof bodyContent.properties === 'object') {
         properties = bodyContent.properties ?? {};
 
+        // parse extension resources (associations)
         if ('extensionId' in properties && typeof properties.extensionId === 'string') {
           const parsedExtensionId = properties.extensionId.match(/^\/subscriptions\/([^/]*)\/resourceGroups\/([^/]*)\/providers\/Microsoft.CustomProviders\/resourceProviders\/([^/]*)\/([^/]*)\/?([^/]*)?$/);
           if (parsedExtensionId && parsedExtensionId.length > 5) {
