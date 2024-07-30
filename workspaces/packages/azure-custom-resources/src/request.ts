@@ -92,12 +92,12 @@ export async function requestFromHttpRequest(request: HttpRequest): Promise<Pars
 
         // parse extension resources (associations)
         if ('extensionId' in properties && typeof properties.extensionId === 'string') {
-          const parsedExtensionId = properties.extensionId.match(/^\/subscriptions\/([^/]*)\/resourceGroups\/([^/]*)\/providers\/Microsoft.CustomProviders\/resourceProviders\/([^/]*)\/([^/]*)\/?([^/]*)?$/);
+          const parsedExtensionId = properties.extensionId.match(/^\/subscriptions\/([^/]*)\/resourceGroups\/([^/]*)\/providers\/Microsoft.CustomProviders\/[^/]+\/(.+)$/);
           if (parsedExtensionId && parsedExtensionId.length > 5) {
             extensionResource = {
               subscription: parsedExtensionId[1],
               resourceGroup: parsedExtensionId[2],
-              resourceName: parsedExtensionId[5],
+              resourceName: parsedExtensionId[3],
             };
           }
         }
