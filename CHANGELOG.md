@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file
 
 
+## [0.0.6](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.5...v0.0.6) (Tue Jul 30 2024)
+
+### fix
+
+* Regex check ([8f32ed8](https://github.com/joostvdwsd/azure-custom-resources/commit/8f32ed8b952e961b3b79d63f338cae3d0ef7a7a5))
+
 ## [0.0.5](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.4...v0.0.5) (Tue Jul 30 2024)
 
 ### fix
