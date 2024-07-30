@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file
 
 
+## [0.0.4](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.3...v0.0.4) (Tue Jul 30 2024)
+
+### fix
+
+* Extention parsing ([58d0c7b](https://github.com/joostvdwsd/azure-custom-resources/commit/58d0c7b01b74e36ed191fc06c29a8372f25db477))
+
 ## [0.0.3](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.2...v0.0.3) (Mon Jul 29 2024)
 
 ### feat
