@@ -6,10 +6,15 @@ import { Request } from './request';
 export function generateFriendlyId(prefix: string, request: Request) {
   const hash = createHash('sha1');
   hash.update(request.subscriptionId);
-  hash.update(request.resoureGroup);
+  hash.update(request.resourceGroup);
   hash.update(request.providerType);
   hash.update(request.resourceType);
   hash.update(request.resourceName);
+  if (request.extensionResource) {
+    hash.update(request.extensionResource.subscriptionId);
+    hash.update(request.extensionResource.resourceGroup);
+    hash.update(request.extensionResource.resourceName);
+  }
   const result = hash.digest().subarray(0, 7);
   return `${prefix}-${bs58.encode(result)}`;
 }
