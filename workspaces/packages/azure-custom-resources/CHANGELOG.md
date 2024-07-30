@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file
 
 
+## [0.0.5](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.4...v0.0.5) (Tue Jul 30 2024)
+
+### fix
+
+* Name conventions ([455bc2c](https://github.com/joostvdwsd/azure-custom-resources/commit/455bc2c1783e350c3ac91d676393315b68d758ee))
+
+* Updated freindly id to also use extensionids ([507c2dc](https://github.com/joostvdwsd/azure-custom-resources/commit/507c2dc196d18d59fe12a430b2c5d5f011053a1d))
+
 ## [0.0.4](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.3...v0.0.4) (Tue Jul 30 2024)
 
 ### fix
