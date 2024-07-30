@@ -5,7 +5,7 @@ import { Duration, asyncRequestFirstEpochParam, asyncRequestIdParam, asyncReques
 export type RequestType = 'create' | 'delete' | 'retrieve' | 'list' | 'action' | 'asyncCreateStatus' | 'asyncDeleteStatus';
 
 export interface ExtensionResource {
-  readonly subscription: string;
+  readonly subscriptionId: string;
   readonly resourceGroup: string;
   readonly resourceName: string;
 }
@@ -16,7 +16,7 @@ export interface Request {
   readonly requestPath: string;
 
   readonly subscriptionId: string;
-  readonly resoureGroup: string;
+  readonly resourceGroup: string;
   readonly providerType: string;
   readonly resourceType: string;
   readonly resourceName: string;
@@ -95,7 +95,7 @@ export async function requestFromHttpRequest(request: HttpRequest): Promise<Pars
           const parsedExtensionId = properties.extensionId.match(/^\/subscriptions\/([^/]*)\/resourceGroups\/([^/]*)\/providers\/Microsoft.CustomProviders\/[^/]+\/(.+)$/);
           if (parsedExtensionId && parsedExtensionId.length > 5) {
             extensionResource = {
-              subscription: parsedExtensionId[1],
+              subscriptionId: parsedExtensionId[1],
               resourceGroup: parsedExtensionId[2],
               resourceName: parsedExtensionId[3],
             };
@@ -111,7 +111,7 @@ export async function requestFromHttpRequest(request: HttpRequest): Promise<Pars
     httpRequest: request,
     requestPath,
     subscriptionId: parsedPath[1],
-    resoureGroup: parsedPath[2],
+    resourceGroup: parsedPath[2],
     providerType: parsedPath[3],
     resourceType: parsedPath[4],
     resourceName: isResourceRequest ? parsedPath[5] : '',
