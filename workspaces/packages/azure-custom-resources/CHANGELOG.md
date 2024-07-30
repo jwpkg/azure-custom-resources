@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file
 
 
+## [0.0.3](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.2...v0.0.3) (Mon Jul 29 2024)
+
+### feat
+
+* Extension resources ([ddb21cc](https://github.com/joostvdwsd/azure-custom-resources/commit/ddb21ccb654b4c824d4899e9b9ec80b1c53c3737))
+
 ## [0.0.2](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.1...v0.0.2) (Thu Jul 25 2024)
 
 ### fix
