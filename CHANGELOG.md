@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file
 
 
+## [0.0.7](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.6...v0.0.7) (Wed Jul 31 2024)
+
+### feat
+
+* Added unrecoverable error type ([a42163b](https://github.com/joostvdwsd/azure-custom-resources/commit/a42163b70d29e536de33f8349d9d8a5a4cf6f774))
+
 ## [0.0.6](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.5...v0.0.6) (Tue Jul 30 2024)
 
 ### fix
