@@ -1,14 +1,9 @@
 import { HttpRequest } from '@azure/functions';
 
+import { AzureCustomResourcePath, AzureExtensionResourcePath } from './azure-resource';
 import { Duration, asyncRequestFirstEpochParam, asyncRequestIdParam, asyncRequestPath, asyncRequestRetryCountParam, asyncRequestTypeParam } from './util';
 
 export type RequestType = 'create' | 'delete' | 'retrieve' | 'list' | 'action' | 'asyncCreateStatus' | 'asyncDeleteStatus';
-
-export interface ExtensionResource {
-  readonly subscriptionId: string;
-  readonly resourceGroup: string;
-  readonly resourceName: string;
-}
 
 export interface Request {
   readonly httpRequest: HttpRequest;
@@ -22,7 +17,7 @@ export interface Request {
   readonly resourceName: string;
   readonly location?: string;
 
-  readonly extensionResource?:  ExtensionResource;
+  readonly extensionResource?:  AzureExtensionResourcePath;
 
   readonly properties: Record<string, any>;
 
@@ -46,13 +41,11 @@ export async function requestFromHttpRequest(request: HttpRequest): Promise<Pars
     throw new Error('Invalid request. Was expecting the header "x-ms-customproviders-requestpath"');
   }
 
-  const parsedPath = requestPath.match(/^\/subscriptions\/([^/]*)\/resourceGroups\/([^/]*)\/providers\/Microsoft.CustomProviders\/resourceProviders\/([^/]*)\/([^/]*)\/?([^/]*)?$/);
+  const parsedPath = AzureCustomResourcePath.parse(requestPath);
 
   if (!parsedPath) {
     throw new Error(`Invalid request path of '${requestPath}'`);
   }
-
-  const isResourceRequest = parsedPath.length > 5;
 
   let requestType: RequestType;
 
@@ -70,7 +63,7 @@ export async function requestFromHttpRequest(request: HttpRequest): Promise<Pars
       case 'POST': requestType = 'action'; break;
       case 'PUT': requestType = 'create'; break;
       case 'DELETE': requestType = 'delete'; break;
-      case 'GET': requestType = isResourceRequest ? 'retrieve' : 'list'; break;
+      case 'GET': requestType = parsedPath.isResourcePath ? 'retrieve' : 'list'; break;
       default:
         throw new Error('Invalid request method');
     }
@@ -78,7 +71,9 @@ export async function requestFromHttpRequest(request: HttpRequest): Promise<Pars
 
   let properties: Record<string, any> = {};
   let location: string | undefined;
-  let extensionResource: ExtensionResource | undefined;
+
+  const extensionResourceHeader = request.headers.get('x-ms-customproviders-requestpath');
+  const extensionResource = extensionResourceHeader ? AzureExtensionResourcePath.tryParse(extensionResourceHeader) : undefined;
 
   if (['put', 'post'].includes(request.method.toLowerCase()) && request.body !== null) {
     const bodyContent = await request.json();
@@ -89,18 +84,6 @@ export async function requestFromHttpRequest(request: HttpRequest): Promise<Pars
       }
       if ('properties' in bodyContent && typeof bodyContent.properties === 'object') {
         properties = bodyContent.properties ?? {};
-
-        // parse extension resources (associations)
-        if ('extensionId' in properties && typeof properties.extensionId === 'string') {
-          const parsedExtensionId = properties.extensionId.match(/^\/subscriptions\/([^/]*)\/resourceGroups\/([^/]*)\/providers\/Microsoft.CustomProviders\/[^/]+\/(.+)$/);
-          if (parsedExtensionId && parsedExtensionId.length > 3) {
-            extensionResource = {
-              subscriptionId: parsedExtensionId[1],
-              resourceGroup: parsedExtensionId[2],
-              resourceName: parsedExtensionId[3],
-            };
-          }
-        }
       }
     }
   }
@@ -110,11 +93,11 @@ export async function requestFromHttpRequest(request: HttpRequest): Promise<Pars
   const result: Request = {
     httpRequest: request,
     requestPath,
-    subscriptionId: parsedPath[1],
-    resourceGroup: parsedPath[2],
-    providerType: parsedPath[3],
-    resourceType: parsedPath[4],
-    resourceName: isResourceRequest ? parsedPath[5] : '',
+    subscriptionId: parsedPath.subscriptionId,
+    resourceGroup: parsedPath.resourceGroup,
+    providerType: parsedPath.providerName,
+    resourceType: parsedPath.resourceType,
+    resourceName: parsedPath.resourceName,
     properties,
     location,
 
