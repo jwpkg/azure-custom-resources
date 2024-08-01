@@ -69,7 +69,3 @@ export class AzureExtensionResourcePath {
     return parsedPath;
   }
 }
-
-// 'x-ms-customproviders-extensionpath': '/subscriptions/5cbc3b4c-c4d3-4adb-a492-c29f133c4516/resourceGroups/ne-example-apps    /providers/Microsoft.CustomProviders/associations     /network-rule-35wwure2a5pu4',
-// 'x-ms-customproviders-requestpath':   '/subscriptions/5cbc3b4c-c4d3-4adb-a492-c29f133c4516/resourceGroups/ne-network-rules-rg/providers/Microsoft.CustomProviders/resourceProviders/network-rule-provider/associations/network-rule-35wwure2a5pu4',
-// X-MS-CustomProviders-RequestPath:      /subscriptions/5cbc3b4c-c4d3-4adb-a492-c29f133c4516/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomProviders/resourceProviders/{resourceProviderName}/myCustomResources/{myCustomResourceName}
