@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file
 
 
+## [0.0.8](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.7...v0.0.8) (Thu Aug 01 2024)
+
+### fix
+
+* Extension resource handling with request header ([a723f5e](https://github.com/joostvdwsd/azure-custom-resources/commit/a723f5e562063977bd8733a76bd432ab0c6446cf))
+
 ## [0.0.7](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.6...v0.0.7) (Wed Jul 31 2024)
 
 ### feat
