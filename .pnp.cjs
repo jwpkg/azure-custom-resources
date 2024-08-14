@@ -35,7 +35,7 @@ const RAW_RUNTIME_STATE =
           ["@cp-utils/constraints-config", "npm:0.1.2"],\
           ["@cp-utils/eslint-config", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:0.0.7"],\
           ["@cp-utils/gitversion", "npm:0.0.50"],\
-          ["@types/node", "npm:20.14.12"],\
+          ["@types/node", "npm:22.2.0"],\
           ["@yarnpkg/types", "npm:4.0.0"],\
           ["eslint", "npm:8.57.0"],\
           ["jest", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.7.0"],\
@@ -1841,6 +1841,14 @@ const RAW_RUNTIME_STATE =
           ["undici-types", "npm:5.26.5"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:22.2.0", {\
+        "packageLocation": "../../.yarn/berry/cache/@types-node-npm-22.2.0-f59a1b32cb-10c0.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:22.2.0"],\
+          ["undici-types", "npm:6.13.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@types/responselike", [\
@@ -3465,7 +3473,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["azure-custom-resources", "workspace:workspaces/packages/azure-custom-resources"],\
           ["@azure/functions", "npm:4.5.0"],\
-          ["@types/node", "npm:20.14.12"],\
+          ["@types/node", "npm:22.2.0"],\
           ["bs58", "npm:6.0.0"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"]\
         ],\
@@ -3480,7 +3488,7 @@ const RAW_RUNTIME_STATE =
           ["@cp-utils/constraints-config", "npm:0.1.2"],\
           ["@cp-utils/eslint-config", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:0.0.7"],\
           ["@cp-utils/gitversion", "npm:0.0.50"],\
-          ["@types/node", "npm:20.14.12"],\
+          ["@types/node", "npm:22.2.0"],\
           ["@yarnpkg/types", "npm:4.0.0"],\
           ["eslint", "npm:8.57.0"],\
           ["jest", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.7.0"],\
@@ -9130,6 +9138,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../.yarn/berry/cache/undici-types-npm-5.26.5-de4f7c7bb9-10c0.zip/node_modules/undici-types/",\
         "packageDependencies": [\
           ["undici-types", "npm:5.26.5"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:6.13.0", {\
+        "packageLocation": "../../.yarn/berry/cache/undici-types-npm-6.13.0-3ce6ceead9-10c0.zip/node_modules/undici-types/",\
+        "packageDependencies": [\
+          ["undici-types", "npm:6.13.0"]\
         ],\
         "linkType": "HARD"\
       }]\
