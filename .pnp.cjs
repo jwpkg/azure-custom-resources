@@ -39,7 +39,7 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/types", "npm:4.0.0"],\
           ["eslint", "npm:8.57.0"],\
           ["jest", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.7.0"],\
-          ["ts-jest", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.2.3"],\
+          ["ts-jest", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.2.4"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"]\
         ],\
         "linkType": "SOFT"\
@@ -3492,7 +3492,7 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/types", "npm:4.0.0"],\
           ["eslint", "npm:8.57.0"],\
           ["jest", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.7.0"],\
-          ["ts-jest", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.2.3"],\
+          ["ts-jest", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.2.4"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"]\
         ],\
         "linkType": "SOFT"\
@@ -8871,17 +8871,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["ts-jest", [\
-      ["npm:29.2.3", {\
-        "packageLocation": "../../.yarn/berry/cache/ts-jest-npm-29.2.3-343723b2c8-10c0.zip/node_modules/ts-jest/",\
+      ["npm:29.2.4", {\
+        "packageLocation": "../../.yarn/berry/cache/ts-jest-npm-29.2.4-9e84324ea6-10c0.zip/node_modules/ts-jest/",\
         "packageDependencies": [\
-          ["ts-jest", "npm:29.2.3"]\
+          ["ts-jest", "npm:29.2.4"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.2.3", {\
-        "packageLocation": "./.yarn/__virtual__/ts-jest-virtual-fae7daf857/3/.yarn/berry/cache/ts-jest-npm-29.2.3-343723b2c8-10c0.zip/node_modules/ts-jest/",\
+      ["virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.2.4", {\
+        "packageLocation": "./.yarn/__virtual__/ts-jest-virtual-dd0cb466be/3/.yarn/berry/cache/ts-jest-npm-29.2.4-9e84324ea6-10c0.zip/node_modules/ts-jest/",\
         "packageDependencies": [\
-          ["ts-jest", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.2.3"],\
+          ["ts-jest", "virtual:b2d10fbc95a6fbf11bae0ec5b254e68a87e130a92315c3efb411e5218368c65ddfcc6101865f7427a856b0df54fd85646fd35cf85cb9c8af9dcb592568fa0841#npm:29.2.4"],\
           ["@babel/core", null],\
           ["@jest/transform", null],\
           ["@jest/types", null],\
