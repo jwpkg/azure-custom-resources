@@ -236,11 +236,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@azure/functions", [\
-      ["npm:4.5.0", {\
-        "packageLocation": "../../.yarn/berry/cache/@azure-functions-npm-4.5.0-a5f5fca521-10c0.zip/node_modules/@azure/functions/",\
+      ["npm:4.6.0", {\
+        "packageLocation": "../../.yarn/berry/cache/@azure-functions-npm-4.6.0-292bb1095d-10c0.zip/node_modules/@azure/functions/",\
         "packageDependencies": [\
-          ["@azure/functions", "npm:4.5.0"],\
-          ["cookie", "npm:0.6.0"],\
+          ["@azure/functions", "npm:4.6.0"],\
+          ["cookie", "npm:0.7.2"],\
           ["long", "npm:4.0.0"],\
           ["undici", "npm:5.28.4"]\
         ],\
@@ -3472,7 +3472,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./workspaces/packages/azure-custom-resources/",\
         "packageDependencies": [\
           ["azure-custom-resources", "workspace:workspaces/packages/azure-custom-resources"],\
-          ["@azure/functions", "npm:4.5.0"],\
+          ["@azure/functions", "npm:4.6.0"],\
           ["@types/node", "npm:22.2.0"],\
           ["bs58", "npm:6.0.0"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"]\
@@ -4194,10 +4194,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["cookie", [\
-      ["npm:0.6.0", {\
-        "packageLocation": "../../.yarn/berry/cache/cookie-npm-0.6.0-362d6a2e45-10c0.zip/node_modules/cookie/",\
+      ["npm:0.7.2", {\
+        "packageLocation": "../../.yarn/berry/cache/cookie-npm-0.7.2-6ea9ee4231-10c0.zip/node_modules/cookie/",\
         "packageDependencies": [\
-          ["cookie", "npm:0.6.0"]\
+          ["cookie", "npm:0.7.2"]\
         ],\
         "linkType": "HARD"\
       }]\
