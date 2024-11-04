@@ -175,14 +175,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/functions@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "@azure/functions@npm:4.5.0"
+"@azure/functions@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "@azure/functions@npm:4.6.0"
   dependencies:
-    cookie: "npm:^0.6.0"
+    cookie: "npm:^0.7.0"
     long: "npm:^4.0.0"
     undici: "npm:^5.13.0"
-  checksum: 10c0/52ca1db9e000fdac47eb6969fb1ea51129a83cb8036f76be1c3d20751666bb1c3e7db11c11ee3cedac8169400d2bf6db7ab2fe2c57ae11e98afa23a8891e01bc
+  checksum: 10c0/4180294608bfaa23a0a8e9f191ce6da21c2304ef4364d16600311d32e232fa94fb7f40ff3b1c9932a700fe8dfa6fcf8333baa46f601e26480ab49fa260e04e61
   languageName: node
   linkType: hard
 
@@ -2369,7 +2369,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "azure-custom-resources@workspace:workspaces/packages/azure-custom-resources"
   dependencies:
-    "@azure/functions": "npm:^4.5.0"
+    "@azure/functions": "npm:^4.6.0"
     "@types/node": "npm:^22.2.0"
     bs58: "npm:^6.0.0"
     typescript: "npm:^5.5.4"
@@ -2931,10 +2931,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "cookie@npm:0.6.0"
-  checksum: 10c0/f2318b31af7a31b4ddb4a678d024514df5e705f9be5909a192d7f116cfb6d45cbacf96a473fa733faa95050e7cff26e7832bb3ef94751592f1387b71c8956686
+"cookie@npm:^0.7.0":
+  version: 0.7.2
+  resolution: "cookie@npm:0.7.2"
+  checksum: 10c0/9596e8ccdbf1a3a88ae02cf5ee80c1c50959423e1022e4e60b91dd87c622af1da309253d8abdb258fb5e3eacb4f08e579dc58b4897b8087574eee0fd35dfa5d2
   languageName: node
   linkType: hard
 
