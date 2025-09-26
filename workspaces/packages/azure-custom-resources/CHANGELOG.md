@@ -4,6 +4,26 @@
 All notable changes to this project will be documented in this file
 
 
+## [0.0.10](https://github.com/jwpkg/azure-custom-resources/compare/v0.0.9...v0.0.10) (Fri Sep 26 2025)
+
+### chore
+
+* **deps-dev** Bump @types/node from 20.14.12 to 22.2.0 ([04a0de9](https://github.com/jwpkg/azure-custom-resources/commit/04a0de9321ebefa9e30738e399c9de722b2acc26))
+
+* Updated core files ([5cad430](https://github.com/jwpkg/azure-custom-resources/commit/5cad430ed17d7aeb432103d1ade1b9e5c089f9e0))
+
+* Fixed constraints ([d60ecb5](https://github.com/jwpkg/azure-custom-resources/commit/d60ecb581a461af0a3c3ab3153d74f5d12823ea9))
+
+### refactor
+
+* Changed the wrap handler to work with a dispatch object instead of a switch ([f7f6f2b](https://github.com/jwpkg/azure-custom-resources/commit/f7f6f2b6cadb3f2b24bad8e0c1f54839ef3b2d5c))
+
+### fix
+
+* Updated typescript ([ebe26b8](https://github.com/jwpkg/azure-custom-resources/commit/ebe26b8b77d5aa438f21ff0ae4a1d4836bc67062))
+
+* Reverted typescrip ([db3d0c3](https://github.com/jwpkg/azure-custom-resources/commit/db3d0c3d6d7f7266f8c8c5296e74fae7b97b20f7))
+
 ## [0.0.9](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.8...v0.0.9) (Thu Aug 01 2024)
 
 ### fix
