@@ -1281,12 +1281,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.2.0":
-  version: 22.2.0
-  resolution: "@types/node@npm:22.2.0"
+"@types/node@npm:^24.5.2":
+  version: 24.5.2
+  resolution: "@types/node@npm:24.5.2"
   dependencies:
-    undici-types: "npm:~6.13.0"
-  checksum: 10c0/c17900b34faecfec204f72970bd658d0c217aaf739c1bf7690c969465b6b26b77a8be1cd9ba735aadbd1dd20b5c3e4f406ec33528bf7c6eec90744886c5d5608
+    undici-types: "npm:~7.12.0"
+  checksum: 10c0/96baaca6564d39c6f7f6eddd73ce41e2a7594ef37225cd52df3be36fad31712af8ae178387a72d0b80f2e2799e7fd30c014bc0ae9eb9f962d9079b691be00c48
   languageName: node
   linkType: hard
 
@@ -2356,7 +2356,7 @@ __metadata:
     "@cp-utils/constraints-config": "npm:^0.1.2"
     "@cp-utils/eslint-config": "npm:^0.0.7"
     "@cp-utils/gitversion": "npm:^0.0.50"
-    "@types/node": "npm:^22.2.0"
+    "@types/node": "npm:^24.5.2"
     "@yarnpkg/types": "npm:^4.0.0"
     eslint: "npm:^8"
     jest: "npm:^29.7.0"
@@ -2370,7 +2370,7 @@ __metadata:
   resolution: "azure-custom-resources@workspace:workspaces/packages/azure-custom-resources"
   dependencies:
     "@azure/functions": "npm:^4.5.0"
-    "@types/node": "npm:^22.2.0"
+    "@types/node": "npm:^24.5.2"
     bs58: "npm:^6.0.0"
     typescript: "npm:^5.5.4"
   languageName: unknown
@@ -7239,10 +7239,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~6.13.0":
-  version: 6.13.0
-  resolution: "undici-types@npm:6.13.0"
-  checksum: 10c0/2de55181f569c77a4f08063f8bf2722fcbb6ea312a26a9e927bd1f5ea5cf3a281c5ddf23155061db083e0a25838f54813543ff13b0ac34d230d5c1205ead66c1
+"undici-types@npm:~7.12.0":
+  version: 7.12.0
+  resolution: "undici-types@npm:7.12.0"
+  checksum: 10c0/326e455bbc0026db1d6b81c76a1cf10c63f7e2f9821db2e24fdc258f482814e5bfa8481f8910d07c68e305937c5c049610fdc441c5e8b7bb0daca7154fb8a306
   languageName: node
   linkType: hard
 
