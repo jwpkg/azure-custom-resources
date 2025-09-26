@@ -1,7 +1,7 @@
 import { HttpFunctionOptions, HttpHandler, InvocationContext } from '@azure/functions';
 
 import { CoreError, InvalidHandlerError } from './error';
-import { Request, requestFromHttpRequest } from './request';
+import { Request, requestFromHttpRequest, RequestType } from './request';
 import { AsyncResponse, CacheResponse, CreateUpdateResponse, ProxyResponse, isAsyncResponse, isCreatedResponse, makeAsyncResponse, makeResponse } from './response';
 
 export interface BaseHandler<ReponseType extends CacheResponse> {
@@ -39,9 +39,10 @@ export function wrapCachedResource(handler: CacheHandler, route?: string): HttpF
   };
 }
 
-export function wrapProxyResource(handler: ProxyHandler): HttpFunctionOptions {
+export function wrapProxyResource(handler: ProxyHandler, route?: string): HttpFunctionOptions {
   return {
     handler: wrapHandler(handler),
+    route,
     methods: [
       'GET',
       'DELETE',
@@ -50,9 +51,10 @@ export function wrapProxyResource(handler: ProxyHandler): HttpFunctionOptions {
   };
 }
 
-export function wrapAction(handler: ActionHandler): HttpFunctionOptions {
+export function wrapAction(handler: ActionHandler, route?: string): HttpFunctionOptions {
   return {
     handler: wrapHandler(handler),
+    route,
     methods: [
       'POST',
     ],
@@ -60,110 +62,60 @@ export function wrapAction(handler: ActionHandler): HttpFunctionOptions {
 }
 
 export function wrapHandler(handler: CacheHandler | ProxyHandler | ActionHandler): HttpHandler {
-  return async (request, context) => {
-    //TODO: Validate header "x-arr-clientcert" against certificate
-
-    context.warn('Initialized custom resource event');
+  return async (req, ctx) => {
     try {
-      context.warn('REQUEST', request.method, request.url, request.query);
-      context.warn('HEADERS', Object.fromEntries(request.headers));
+      const crReq = await requestFromHttpRequest(req);
 
-      const customResourceRequest = await requestFromHttpRequest(request);
+      ctx.warn('Custom resource request:', crReq);
 
-      context.warn('Custom resource request:', customResourceRequest);
-
+      // Action-only
       if ('execute' in handler) {
-        if (customResourceRequest.requestType === 'action') {
-          const result = await handler.execute(customResourceRequest, context);
-          return makeResponse(200, context, result.properties);
-        } else {
-          throw new InvalidHandlerError('No action handler configured for action request');
-        }
+        if (crReq.requestType !== 'action') throw new InvalidHandlerError('Unexpected non-action request');
+        return makeResponse(200, ctx, (await handler.execute(crReq, ctx)).properties);
       }
 
-      switch (customResourceRequest.requestType) {
-        case 'create': {
-          const result = await handler.createUpdate(customResourceRequest, context);
-
-          if (isAsyncResponse(result)) {
-            return makeAsyncResponse(customResourceRequest, context, result);
-          } else if (isCreatedResponse(result)) {
-            return makeResponse(201, context, result.created);
-          } else {
-            return makeResponse(200, context, result.updated);
-          }
-        }
-
-        case 'delete': {
-          const result = await handler.delete(customResourceRequest, context);
-          if (isAsyncResponse(result)) {
-            return makeAsyncResponse(customResourceRequest, context, result);
-          } else {
-            return makeResponse(200, context);
-          }
-        }
-
-        case 'asyncCreateStatus': {
-          if (!handler.asyncCreateStatus) {
-            throw new InvalidHandlerError('Recieved an async create status but method not implemented. Please implement asyncCreateStatus');
-          }
-          const result = await handler.asyncCreateStatus(customResourceRequest, context);
-
-          if (isAsyncResponse(result)) {
-            return makeAsyncResponse(customResourceRequest, context, result);
-          } else if (isCreatedResponse(result)) {
-            return makeResponse(201, context, result.created);
-          } else {
-            return makeResponse(200, context, result.updated);
-          }
-        }
-
-        case 'asyncDeleteStatus': {
-          if (!handler.asyncDeleteStatus) {
-            throw new InvalidHandlerError('Recieved an async delete status but method not implemented. Please implement asyncDeleteStatus');
-          }
-          const result = await handler.asyncDeleteStatus(customResourceRequest, context);
-          if (isAsyncResponse(result)) {
-            return makeAsyncResponse(customResourceRequest, context, result);
-          } else {
-            return makeResponse(200, context);
-          }
-        }
-
-        case 'retrieve': {
-          if (!('retrieve' in handler)) {
-            throw new InvalidHandlerError('Recieved a retrieve event but the method is not implemented');
-          }
-
-          const result = await handler.createUpdate(customResourceRequest, context);
-          return makeResponse(200, context, result);
-        }
-
-        case 'list': {
-          if (!('list' in handler)) {
-            throw new InvalidHandlerError('Recieved a list event but the method is not implemented');
-          }
-          const result = await handler.list(customResourceRequest, context);
-          return makeResponse(200, context, result);
-        }
-      }
-
-      throw new InvalidHandlerError('Invalid request type for a custom resource');
-    } catch (error) {
-      context.error('ERROR', error);
-
-      if (error instanceof CoreError) {
-        return error.makeResponse();
-      }
-      return {
-        status: 500,
-        jsonBody: {
-          error: {
-            code: 'UnknownError',
-            message: `${error}`,
-          },
+      const dispatch: Record<RequestType, () => Promise<any>> = {
+        create: async () => {
+          const res = await handler.createUpdate(crReq, ctx);
+          return isAsyncResponse(res) ? makeAsyncResponse(crReq, ctx, res) :
+            isCreatedResponse(res) ? makeResponse(201, ctx, res.created) :
+              makeResponse(200, ctx, res.updated);
+        },
+        delete: async () => {
+          const res = await handler.delete(crReq, ctx);
+          return isAsyncResponse(res) ? makeAsyncResponse(crReq, ctx, res) : makeResponse(200, ctx);
+        },
+        asyncCreateStatus: async () => {
+          if (!handler.asyncCreateStatus) throw new InvalidHandlerError('asyncCreateStatus not implemented');
+          const res = await handler.asyncCreateStatus(crReq, ctx);
+          return isAsyncResponse(res) ? makeAsyncResponse(crReq, ctx, res) :
+            isCreatedResponse(res) ? makeResponse(201, ctx, res.created) :
+              makeResponse(200, ctx, res.updated);
+        },
+        asyncDeleteStatus: async () => {
+          if (!handler.asyncDeleteStatus) throw new InvalidHandlerError('asyncDeleteStatus not implemented');
+          const res = await handler.asyncDeleteStatus(crReq, ctx);
+          return isAsyncResponse(res) ? makeAsyncResponse(crReq, ctx, res) : makeResponse(200, ctx);
+        },
+        retrieve: async () => {
+          if (!('retrieve' in handler)) throw new InvalidHandlerError('retrieve not implemented');
+          return makeResponse(200, ctx, await handler.retrieve(crReq, ctx));
+        },
+        list: async () => {
+          if (!('list' in handler)) throw new InvalidHandlerError('list not implemented');
+          return makeResponse(200, ctx, await handler.list(crReq, ctx));
+        },
+        action: async () => {
+          throw new InvalidHandlerError('Action not supported');
         },
       };
+
+      if (!dispatch[crReq.requestType]) throw new InvalidHandlerError('Unsupported request type');
+      return await dispatch[crReq.requestType]();
+    } catch (err) {
+      ctx.error('ERROR', err);
+      if (err instanceof CoreError) return err.makeResponse();
+      return { statusCode: 500, jsonBody: { error: { code: 'UnknownError', message: String(err) } } };
     }
   };
 }
