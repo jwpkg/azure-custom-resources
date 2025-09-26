@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file
 
 
+## [0.0.9](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.8...v0.0.9) (Thu Aug 01 2024)
+
+### fix
+
+* Changed friendly id generation ([95d7b91](https://github.com/joostvdwsd/azure-custom-resources/commit/95d7b910e2e18d1532b090493ba7a34de4b764ac))
+
 ## [0.0.8](https://github.com/joostvdwsd/azure-custom-resources/compare/v0.0.7...v0.0.8) (Thu Aug 01 2024)
 
 ### fix
