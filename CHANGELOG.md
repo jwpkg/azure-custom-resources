@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file
 
 
+## [0.0.12](https://github.com/jwpkg/azure-custom-resources/compare/v0.0.11...v0.0.12) (Fri Sep 26 2025)
+
+### fix
+
+* Action types ([20d0312](https://github.com/jwpkg/azure-custom-resources/commit/20d03123098b97adedf8d6614cb9082ac40b23e6))
+
 ## [0.0.11](https://github.com/jwpkg/azure-custom-resources/compare/v0.0.10...v0.0.11) (Fri Sep 26 2025)
 
 ### fix
