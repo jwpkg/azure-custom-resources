@@ -12,7 +12,7 @@ export function generateFriendlyId(prefix: string, request: Request) {
   } else {
     hash.update(request.subscriptionId);
     hash.update(request.resourceGroup);
-    hash.update(request.providerType);
+    hash.update(request.customProviderName);
     hash.update(request.resourceType);
     hash.update(request.resourceName);
   }

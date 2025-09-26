@@ -1,4 +1,4 @@
-import { InvocationContext } from '@azure/functions';
+import { FunctionResult, HttpResponse, HttpResponseInit, InvocationContext } from '@azure/functions';
 
 import { ParsedRequest } from './request';
 import { Duration, asyncRequestFirstEpochParam, asyncRequestIdParam, asyncRequestPath, asyncRequestRetryCountParam, asyncRequestTypeParam } from './util';
@@ -48,11 +48,11 @@ export function isUpdatedResponse<ReponseType extends CacheResponse>(response: a
   return response && typeof response === 'object' && 'updated' in response;
 }
 
-export function makeResponse(statusCode: number, context: InvocationContext, jsonBody?: unknown) {
+export function makeResponse(statusCode: number, context: InvocationContext, jsonBody?: unknown): FunctionResult<HttpResponseInit | HttpResponse> {
   const responseObject = jsonBody && typeof jsonBody === 'object' ? jsonBody : {};
   const status = 'statusCode' in responseObject && typeof responseObject.statusCode === 'number' ? responseObject.statusCode : statusCode;
   const result = {
-    statusCode: status,
+    status,
     jsonBody: jsonBody ?? {},
   };
   context.warn('Return response: ', result);

@@ -38,7 +38,7 @@ export class NotFoundError extends CoreError {
 }
 
 export class InvalidHandlerError extends CoreError {
-  constructor(message: string, public errorCode: string = 'InvalidHandler', public errorStatusCode: number = 404) {
+  constructor(message: string, public errorCode: string = 'InvalidHandler', public errorStatusCode: number = 400) {
     super(message, errorCode, errorStatusCode);
   }
 }

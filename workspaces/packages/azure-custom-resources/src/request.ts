@@ -12,7 +12,7 @@ export interface Request {
 
   readonly subscriptionId: string;
   readonly resourceGroup: string;
-  readonly providerType: string;
+  readonly customProviderName: string;
   readonly resourceType: string;
   readonly resourceName: string;
   readonly location?: string;
@@ -95,7 +95,7 @@ export async function requestFromHttpRequest(request: HttpRequest): Promise<Pars
     requestPath,
     subscriptionId: parsedPath.subscriptionId,
     resourceGroup: parsedPath.resourceGroup,
-    providerType: parsedPath.providerName,
+    customProviderName: parsedPath.customProviderName,
     resourceType: parsedPath.resourceType,
     resourceName: parsedPath.resourceName,
     properties,

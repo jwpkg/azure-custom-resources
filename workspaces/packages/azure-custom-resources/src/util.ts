@@ -20,10 +20,10 @@ export class Duration {
   }
 
   seconds() {
-    return Math.ceil(this.$milliSeconds * 1000);
+    return Math.ceil(this.$milliSeconds / 1000);
   }
 
   minutes() {
-    return Math.ceil(this.$milliSeconds * 60_000);
+    return Math.ceil(this.$milliSeconds / 60_000);
   }
 }

@@ -2,7 +2,11 @@
   "name": "azure-custom-resources",
   "packageManager": "yarn@4.2.2",
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "^24.5.2",
+    "jest": "^29.7.0",
+    "jest-util": "^29.7.0",
+    "ts-jest": "^29.4.4",
     "typescript": "5.5.4"
   },
   "dependencies": {
@@ -22,7 +26,10 @@
     "copy-readme": "cp ../../../README.md .",
     "copy-licence": "cp ../../../LICENSE .",
     "prepack": "yarn copy-readme && yarn copy-licence && yarn build",
-    "postpack": "rm -rf lib"
+    "postpack": "rm -rf lib",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
