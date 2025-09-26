@@ -16,12 +16,12 @@ describe('parseCustomResourceId', () => {
   });
 
   it('should parse a valid custom resource ID without resource name (singleton)', () => {
-    const resourceId = '/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/bicep-assets/providers/Microsoft.CustomProviders/resourceProviders/asset-sas-provider/listDownloadSas';
+    const resourceId = '/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/bicep-asset/providers/Microsoft.CustomProviders/resourceProviders/asset-sas-provider/listDownloadSas';
     const result = parseCustomResourceId(resourceId);
 
     expect(result).toEqual({
       subscriptionId: '12345678-1234-1234-1234-123456789012',
-      resourceGroup: 'bicep-assets',
+      resourceGroup: 'bicep-asset',
       providerNamespace: 'Microsoft.CustomProviders',
       customProviderName: 'asset-sas-provider',
       resourceType: 'listDownloadSas',
