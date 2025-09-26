@@ -1,35 +1,31 @@
-export interface ResourceIdSegment {
-  type: string;
-  name: string;
-}
-
-export interface ParsedResourceId {
+export interface ParsedCustomResourceId {
   subscriptionId: string;
   resourceGroup: string;
-  providerNamespace: string;
-  segments: ResourceIdSegment[];
+  providerNamespace: string;   // always "Microsoft.CustomProviders"
+  customProviderName: string;  // from resourceProviders/<name>
+  resourceType: string;        // e.g. "widgets" or "listDownloadSas"
+  resourceName: string;        // may equal resourceType for singleton
 }
 
-export function parseResourceId(resourceId: string): ParsedResourceId {
-  const parts = resourceId.split('/').filter(Boolean);
-  if (parts.length < 8) throw new Error(`Invalid resourceId: ${resourceId}`);
+const CUSTOM_RESOURCE_REGEX =
+  /^\/subscriptions\/([^/]+)\/resourceGroups\/([^/]+)\/providers\/Microsoft\.CustomProviders\/resourceProviders\/([^/]+)\/([^/]+)(?:\/([^/]+))?\/?$/;
 
-  const [subscriptions, subscriptionId, rgKeyword, resourceGroup, providers, providerNamespace, ...rest] = parts;
-  if (subscriptions !== 'subscriptions' || rgKeyword !== 'resourceGroups' || providers !== 'providers') {
-    throw new Error(`Malformed resourceId: ${resourceId}`);
-  }
+export function parseCustomResourceId(resourceId: string): ParsedCustomResourceId {
+  const match = resourceId.match(CUSTOM_RESOURCE_REGEX);
+  if (!match) throw new Error(`Invalid custom resourceId: ${resourceId}`);
 
-  // Pair remaining segments as [type, name]
-  const segments: ResourceIdSegment[] = [];
-  for (let i = 0; i < rest.length; i += 2) {
-    const type = rest[i];
-    const name = rest[i + 1];
-    if (!type || !name) throw new Error(`Invalid type/name pair in resourceId: ${resourceId}`);
-    segments.push({ type, name });
-  }
+  const [, subscriptionId, resourceGroup, customProviderName, resourceType, resourceName] = match;
 
-  return { subscriptionId, resourceGroup, providerNamespace, segments };
+  return {
+    subscriptionId,
+    resourceGroup,
+    providerNamespace: 'Microsoft.CustomProviders',
+    customProviderName,
+    resourceType,
+    resourceName: resourceName ?? resourceType, // fallback for singleton
+  };
 }
+
 export class AzureCustomResourcePath {
   constructor(
     public subscriptionId: string,
@@ -38,38 +34,30 @@ export class AzureCustomResourcePath {
     public customProviderName: string,
     public resourceType: string,
     public resourceName: string,
-    public isResourcePath: boolean,
+    public isResourcePath: boolean = true,
   ) {}
 
   static tryParse(resourceId: string): AzureCustomResourcePath | undefined {
-    let parsed: ParsedResourceId;
     try {
-      parsed = parseResourceId(resourceId);
+      const parsed = parseCustomResourceId(resourceId);
+      return new AzureCustomResourcePath(
+        parsed.subscriptionId,
+        parsed.resourceGroup,
+        parsed.providerNamespace,
+        parsed.customProviderName,
+        parsed.resourceType,
+        parsed.resourceName,
+        true,
+      );
     } catch {
       return undefined;
     }
-
-    if (parsed.providerNamespace !== 'Microsoft.CustomProviders') return undefined;
-    if (parsed.segments.length < 2) return undefined;
-
-    const [first, second] = parsed.segments;
-    if (first.type !== 'resourceProviders') return undefined;
-
-    return new AzureCustomResourcePath(
-      parsed.subscriptionId,
-      parsed.resourceGroup,
-      parsed.providerNamespace,
-      first.name,   // customProviderName
-      second.type,  // resourceType
-      second.name,  // resourceName
-      true,
-    );
   }
 
   static parse(resourceId: string): AzureCustomResourcePath {
-    const parsed = this.tryParse(resourceId);
-    if (!parsed) throw new Error(`Invalid custom resourceId: ${resourceId}`);
-    return parsed;
+    const result = this.tryParse(resourceId);
+    if (!result) throw new Error(`Invalid custom resourceId: ${resourceId}`);
+    return result;
   }
 }
 
@@ -78,28 +66,25 @@ export class AzureExtensionResourcePath {
     public subscriptionId: string,
     public resourceGroup: string,
     public resourceName: string,
+    public isResourcePath: boolean = true,
   ) {}
 
   static tryParse(resourceId: string): AzureExtensionResourcePath | undefined {
-    let parsed: ParsedResourceId;
-    try {
-      parsed = parseResourceId(resourceId);
-    } catch {
-      return undefined;
-    }
+    // Expect pattern: /subscriptions/.../resourceGroups/.../providers/Microsoft.CustomProviders/associations/<resourceName>
+    const EXTENSION_RESOURCE_REGEX =
+      /^\/subscriptions\/([^/]+)\/resourceGroups\/([^/]+)\/providers\/Microsoft\.CustomProviders\/associations\/([^/]+)\/?$/;
 
-    if (parsed.providerNamespace !== 'Microsoft.CustomProviders') return undefined;
-    if (parsed.segments.length !== 2) return undefined;
+    const match = resourceId.match(EXTENSION_RESOURCE_REGEX);
+    if (!match) return undefined;
 
-    const [first, assoc] = parsed.segments;
-    if (first.type !== 'associations') return undefined;
+    const [, subscriptionId, resourceGroup, resourceName] = match;
 
-    return new AzureExtensionResourcePath(parsed.subscriptionId, parsed.resourceGroup, assoc.name);
+    return new AzureExtensionResourcePath(subscriptionId, resourceGroup, resourceName, true);
   }
 
   static parse(resourceId: string): AzureExtensionResourcePath {
-    const parsed = this.tryParse(resourceId);
-    if (!parsed) throw new Error(`Invalid extension resourceId: ${resourceId}`);
-    return parsed;
+    const result = this.tryParse(resourceId);
+    if (!result) throw new Error(`Invalid extension resourceId: ${resourceId}`);
+    return result;
   }
 }
